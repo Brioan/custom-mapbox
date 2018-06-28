@@ -5,7 +5,7 @@
         <title> Map </title>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="stylesheet" href="assets/css/style.css" />
+        <!-- <link rel="stylesheet" href="assets/css/style.css" /> -->
         
         <script src='https://api.mapbox.com/mapbox-gl-js/v0.44.2/mapbox-gl.js'></script>
         <link href='https://api.mapbox.com/mapbox-gl-js/v0.44.2/mapbox-gl.css' rel='stylesheet' />
@@ -23,7 +23,9 @@
             mapboxgl.accessToken = 'pk.eyJ1IjoiYnJpb2FuIiwiYSI6ImNqaHZla2ticTB5Y28zcXAzb2F1eHNlZ2sifQ.xSx21-Ra58aPdvo4ZlWwVg';
             var map = new mapboxgl.Map({
             container: 'map',
-            style: 'mapbox://styles/mapbox/streets-v9'
+            style: 'mapbox://styles/mapbox/streets-v9',
+            center: [174.7633, -36.8485],
+            zoom: 10
             });
             map.addControl(new mapboxgl.NavigationControl());
 
@@ -63,7 +65,10 @@
                         'fill-extrusion-opacity': .6
                     }
                 }, labelLayerId);
+
             });
+
+            
 
         </script>
             
