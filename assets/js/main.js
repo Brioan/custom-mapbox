@@ -1,15 +1,24 @@
 // public token
 mapboxgl.accessToken = 'pk.eyJ1IjoiYnJpb2FuIiwiYSI6ImNqaHZla2ticTB5Y28zcXAzb2F1eHNlZ2sifQ.xSx21-Ra58aPdvo4ZlWwVg';
-var map = new mapboxgl.Map({
-    container: 'map',
+var map1 = new mapboxgl.Map({
+    container: 'map1',
     style: 'mapbox://styles/mapbox/streets-v9',
     center: [174.7633, -36.8485],
     zoom: 14
 });
-map.addControl(new mapboxgl.NavigationControl());
+var map2 = new mapboxgl.Map({
+    container: 'map2',
+    style: 'mapbox://styles/brioan/cjjr6zraw10x82ruo69ubdgi2',
+    center: [174.7633, -36.8485],
+    zoom: 14
+});
 
-var years = ['1840', /* '2018' */]
-var texts = ['1840 Mean High Water Mark, plotted by Aranne Donald, Auckland City Heritage Division 1992', '']
+var map = new mapboxgl.Compare(map1, map2, {
+});
+map1.addControl(new mapboxgl.NavigationControl());
+
+var years = ['1840' /* '2018' */]
+var texts = ['Black line: 1840 Mean High Water Mark, plotted by Aranne Donald, Auckland City Heritage Division 1992']
 
 // Menu
 for (var i = 0; i < years.length; i++) {
@@ -24,14 +33,14 @@ for (var i = 0; i < years.length; i++) {
         e.preventDefault();
         e.stopPropagation();
 
-        var visibility = map.getLayoutProperty(clickedLayer, 'visibility');
+        var visibility = map1.getLayoutProperty(clickedLayer, 'visibility');
 
         if (visibility === 'visible') {
-            map.setLayoutProperty(clickedLayer, 'visibility', 'none');
+            map1.setLayoutProperty(clickedLayer, 'visibility', 'none');
             this.className = '';
         } else {
             this.className = 'active';
-            map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
+            map1.setLayoutProperty(clickedLayer, 'visibility', 'visible');
         }
     };
 
@@ -45,11 +54,18 @@ for (var i = 0; i < years.length; i++) {
     menuKey.appendChild(textElement);
 }
 
+var sourceElement = document.createElement('a');
+sourceElement.href = 'https://github.com/Brioan/mapbox_auckland_coastline';
+sourceElement.textContent = 'Source';
+menuKey.appendChild(sourceElement);
+
+
+
 
 // Mapbox map
-map.on('load', function() {
+map1.on('load', function() {
     // Insert the layer beneath any symbol layer.
-    var layers = map.getStyle().layers;
+    var layers = map1.getStyle().layers;
 
     var labelLayerId;
     for (var i = 0; i < layers.length; i++) {
@@ -60,7 +76,7 @@ map.on('load', function() {
     }
 
     // Vector line
-    map.addLayer({
+    map1.addLayer({
         'id': '1840',
         'type': 'line',
         'source': {
@@ -206,7 +222,7 @@ map.on('load', function() {
     }, labelLayerId);
 
     // Buildings
-    map.addLayer({
+    map1.addLayer({
         'id': '3d-buildings',
         'source': 'composite',
         'source-layer': 'building',
@@ -230,51 +246,6 @@ map.on('load', function() {
             'fill-extrusion-opacity': .6
         }
     }, labelLayerId);
-
-
-
-/*     map.addLayer({
-        'id': 'area-poly',
-        'type': 'fill',
-        'source': {
-            'type': 'geojson',
-            'data': {
-                'type': 'Feature',
-                'geometry': {
-                    'type': 'Polygon',
-                    'coordinates': [[
-                        [
-                        174.75374937057492,
-                        -36.83963529819826
-                        ],
-                        [
-                        174.75164651870728,
-                        -36.844392053357645
-                        ],
-                        [
-                        174.75737571716306,
-                        -36.84602336334079
-                        ],
-                        [
-                        174.75934982299802,
-                        -36.84102629331381
-                        ],
-                        [
-                        174.75374937057492,
-                        -36.83963529819826
-                        ]
-
-
-                    ]]
-                }
-            }
-        },
-        'layout': {},
-        'paint': {
-            'fill-color': '#088',
-            'fill-opacity': 0.5
-        }
-    }, labelLayerId); */
 
 
 });
