@@ -38,9 +38,11 @@ for (var i = 0; i < years.length; i++) {
         if (visibility === 'visible') {
             map1.setLayoutProperty(clickedLayer, 'visibility', 'none');
             this.className = '';
+            map1.setLayoutProperty('area', 'visibility', 'none');
         } else {
             this.className = 'active';
             map1.setLayoutProperty(clickedLayer, 'visibility', 'visible');
+            map1.setLayoutProperty('area', 'visibility', 'visible');
         }
     };
 
@@ -60,6 +62,10 @@ sourceElement.textContent = 'Source';
 menuKey.appendChild(sourceElement);
 
 
+var overlayPolyData = document.getElementById('map-overlay-poly-data');
+var popup = new mapboxgl.Popup({
+    closeButton: false
+});
 
 
 // Mapbox map
@@ -220,6 +226,28 @@ map1.on('load', function() {
             'line-color': ['get', 'color']
         }    
     }, labelLayerId);
+
+
+    // 1840 polygon 
+    map1.addSource('area', {
+        type: 'geojson',
+        data: 'https://raw.githubusercontent.com/Brioan/mapbox_auckland_coastline/master/assets/geojson/1840areaGJSON.geojson'
+    });
+
+    map1.addLayer({
+        'id': 'area',
+        'type': 'fill',
+        'source': 'area',
+        'layout': {
+            'visibility': 'visible'
+        },
+        'paint': {
+            'fill-color': '#000000',
+            'fill-opacity': 0.2
+        }
+    });
+
+    
 
     // Buildings
     map1.addLayer({
