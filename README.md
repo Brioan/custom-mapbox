@@ -1,5 +1,9 @@
 ### Interactive map of the original coastline of Auckland's Waitematā Harbour
 
+Developed using 
+* [Mapbox](https://www.mapbox.com/)
+* [QGIS](https://qgis.org/en/site/) - creating GeoJSON files, georeferencing historic map
+
 For more information
 [Auckland City Heritage Walks pamphlet](https://www.aucklandcouncil.govt.nz/arts-culture-heritage/heritage-walks-places/Documents/auckland-city-heritage-walks-original-shoreline.pdf)
 
