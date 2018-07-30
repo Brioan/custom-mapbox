@@ -57,6 +57,13 @@ for (var i = 0; i < years.length; i++) {
 }
 
 var sourceElement = document.createElement('a');
+sourceElement.textContent = 'Land reclamation: 2.22 sq km';
+menuKey.appendChild(sourceElement);
+
+var sourceElement = document.createElement('br');
+menuKey.appendChild(sourceElement);
+
+var sourceElement = document.createElement('a');
 sourceElement.href = 'https://github.com/Brioan/mapbox_auckland_coastline';
 sourceElement.textContent = 'Source';
 menuKey.appendChild(sourceElement);
